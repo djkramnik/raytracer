@@ -108,7 +108,7 @@ export const cross = (v1: Tuple, v2: Tuple) => {
 }
 
 export const logTuple = (t1: Tuple, prefix?: string) => {
-  console.log(maybePrefix(`${t1.x}, ${t1.y}, ${t1.z}, ${t1.w}`))
+  console.log(maybePrefix(`${t1.x}, ${t1.y}, ${t1.z}, ${t1.w}`, prefix))
 }
 
 
