@@ -7,6 +7,11 @@ import {
     add,
     subtract,
     negate,
+    multiply,
+    divide,
+    magnitude,
+    normalize,
+    cross,
   } from '../tuple'
 import { maybePrefix } from '../util/string'
 import { getExpect } from '../util/test'
@@ -80,6 +85,34 @@ export const chapterOne = (testPrefix?: string) => {
   logTest('negate op')
 
   // multiply
+  expect(multiply(tuple(1, -2, 3, -4), 3.5))
+    .toEqual(tuple(3.5, -7, 10.5, -14))
+  expect(multiply(tuple(1, -2, 3, -4), 0.5))
+    .toEqual(tuple(0.5, -1, 1.5, -2))
 
+  logTest('multiply op')
+  
   // divide
+  expect(divide(tuple(1, -2, 3, -4), 2))
+  .toEqual(tuple(0.5, -1, 1.5, -2))
+
+  logTest('divide op')
+
+  expect(magnitude(vector(1, 0, 0))).toBe(1)
+  expect(magnitude(vector(0, 1, 0))).toBe(1)
+  expect(magnitude(vector(1, 2, 3))).toBe(14 ** 0.5)
+  expect(magnitude(vector(-1, -2, -3))).toBe(14 ** 0.5)
+  logTest('magnitude')
+
+  expect(normalize(vector(4, 0, 0))).toEqual(vector(1, 0, 0))
+  expect(normalize(vector(1, 2, 3)))
+    .toEqual(vector(0.26726, 0.53452, 0.80178))
+  logTest('normalize')
+
+  const a = vector(1, 2, 3)
+  const b = vector(2, 3, 4)
+
+  expect(cross(a, b)).toEqual(vector(-1, 2, -1))
+  expect(cross(b, a)).toEqual(vector(1, -2, 1))
+  logTest('cross')
 }
