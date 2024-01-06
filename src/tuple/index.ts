@@ -78,6 +78,13 @@ export const divide = (t1: Tuple, scalar: number) => {
 
 export const negate = (t1: Tuple) => multiply(t1, -1)
 
+export const hadamard = (t1: Tuple, t2: Tuple) => ({
+  x: t1.x * t2.x,
+  y: t1.y * t2.y,
+  z: t1.z * t2.z,
+  w: t1.w * t2.w,
+})
+
 export const magnitude = ({
   x, y, z, w
 }: Tuple) => (x**2 + y**2 + z**2 + w**2) ** 0.5
