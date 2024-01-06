@@ -62,7 +62,7 @@ export const chapterTwo = (testPrefix: string = 'chapter two') => {
   expect(toIndex(0,1)).toBe(1)
   expect(toIndex(0,2)).toBe(2)
   expect(toIndex(1,0)).toBe(3)
-  expect(toIndex(1, 1)).toBe(4)
+  expect(toIndex(1,1)).toBe(4)
   expect(toIndex(1,2)).toBe(5)
   logTest('coords toIndex')
   
@@ -82,5 +82,5 @@ export const chapterTwo = (testPrefix: string = 'chapter two') => {
   expect(c1.read(3, 4)).toEqual(color(1, 0, 0))
 
   logTest('canvas')
-  
+
 }
