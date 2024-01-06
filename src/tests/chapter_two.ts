@@ -1,4 +1,4 @@
-import { canvas } from "../canvas"
+import { canvas, toPpm } from "../canvas"
 import { addColor, color, hadamardColor, multiplyColor, subtractColor } from "../color"
 import { coordConverter } from "../util/coord"
 import { maybePrefix } from "../util/string"
@@ -59,16 +59,17 @@ export const chapterTwo = (testPrefix: string = 'chapter two') => {
   // test 3x4 grid
   const { toIndex, toCoord } = coordConverter(3)
   expect(toIndex(0,0)).toBe(0)
-  expect(toIndex(0,1)).toBe(1)
-  expect(toIndex(0,2)).toBe(2)
-  expect(toIndex(1,0)).toBe(3)
+  expect(toIndex(1,0)).toBe(1)
+  expect(toIndex(2,0)).toBe(2)
+  expect(toIndex(0,1)).toBe(3)
   expect(toIndex(1,1)).toBe(4)
-  expect(toIndex(1,2)).toBe(5)
+  expect(toIndex(2,1)).toBe(5)
+  expect(toIndex(1,3)).toBe(10)
   logTest('coords toIndex')
   
   const [r, c] = toCoord(10)
-  expect(r).toBe(3)
-  expect(c).toBe(1)
+  expect(r).toBe(1)
+  expect(c).toBe(3)
   logTest('coords toCoord')
 
   // canvas
@@ -76,13 +77,21 @@ export const chapterTwo = (testPrefix: string = 'chapter two') => {
   expect(c1.w).toBe(3)
   expect(c1.h).toBe(4)
   c1.pixels.forEach((p) => {
-    expect(p).toEqual(color(0, 0, 0,))
+    expect(p).toEqual(color(0, 0, 0))
   })
-  c1.write(3, 1, [1, 0, 0])
-  expect(c1.read(3, 1))
+  c1.write(1, 3, [1, 0, 0])
+  expect(c1.read(1, 3))
     .toEqual(color(1, 0, 0))
     .toEqual(c1.pixels[10])
 
   logTest('canvas')
 
+  const c2 = canvas(5, 3)
+  c2.write(0, 0, [1.5, 0 ,0])
+  c2.write(2, 1, [0, 0.5, 0])
+  c2.write(4, 2, [-0.5, 0, 1])
+    
+  const ppm = toPpm(c2)
+  expect(ppm).toBe(`P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255`)
+  
 }
