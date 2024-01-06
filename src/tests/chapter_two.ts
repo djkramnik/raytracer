@@ -1,4 +1,6 @@
+import { canvas } from "../canvas"
 import { addColor, color, hadamardColor, multiplyColor, subtractColor } from "../color"
+import { coordConverter } from "../util/coord"
 import { maybePrefix } from "../util/string"
 import { getExpect } from "../util/test"
 
@@ -53,5 +55,32 @@ export const chapterTwo = (testPrefix: string = 'chapter two') => {
   ).toEqual(color(0.9, 0.2, 0.04))
   logTest('hadamard')
 
+  // coords
+  // test 3x4 grid
+  const { toIndex, toCoord } = coordConverter(3)
+  expect(toIndex(0,0)).toBe(0)
+  expect(toIndex(0,1)).toBe(1)
+  expect(toIndex(0,2)).toBe(2)
+  expect(toIndex(1,0)).toBe(3)
+  expect(toIndex(1, 1)).toBe(4)
+  expect(toIndex(1,2)).toBe(5)
+  logTest('coords toIndex')
+  
+  const [r, c] = toCoord(10)
+  expect(r).toBe(3)
+  expect(c).toBe(1)
+  logTest('coords toCoord')
+
+  // canvas
+  const c1 = canvas(3, 4)
+  expect(c1.w).toBe(3)
+  expect(c1.h).toBe(4)
+  c1.pixels.forEach((p) => {
+    expect(p).toEqual(color(0, 0, 0,))
+  })
+  c1.write(3, 4, [1, 0, 0])
+  expect(c1.read(3, 4)).toEqual(color(1, 0, 0))
+
+  logTest('canvas')
   
 }

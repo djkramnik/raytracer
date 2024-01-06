@@ -8,8 +8,7 @@ const isObject = (x: any): x is ObjectLike => {
   if (typeof x !== 'object') {
     return false
   }
-  return !Array.isArray(x) && 
-    x !== null &&
+  return x !== null &&
     x instanceof Date === false
 }
 
@@ -38,6 +37,7 @@ class Assert {
     return this
   }
 
+  // TODO(?): work with nested objects.  Right now assumes the array or object contains primitive values only
   toEqual = (y: {[key: string]: any}) => {
     if (!isObject(this.x)) {
       throw Error(maybePrefix(`${this.x} is not an object.`, this.prefix))
@@ -53,6 +53,8 @@ class Assert {
     }
     return this
   }
+
+
 }
 
 export const getExpect = (prefix?: string) => {
