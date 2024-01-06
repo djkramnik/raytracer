@@ -78,8 +78,10 @@ export const chapterTwo = (testPrefix: string = 'chapter two') => {
   c1.pixels.forEach((p) => {
     expect(p).toEqual(color(0, 0, 0,))
   })
-  c1.write(3, 4, [1, 0, 0])
-  expect(c1.read(3, 4)).toEqual(color(1, 0, 0))
+  c1.write(3, 1, [1, 0, 0])
+  expect(c1.read(3, 1))
+    .toEqual(color(1, 0, 0))
+    .toEqual(c1.pixels[10])
 
   logTest('canvas')
 

@@ -25,4 +25,12 @@ export const canvas = (w: number, h: number): Canvas => {
   }
 }
 
+// to ppm formatted string
+export const toPpm = (c: Canvas): string => {
+  return `P3
+  ${c.w} ${c.h}
+  255
+  `
+}
+
 
